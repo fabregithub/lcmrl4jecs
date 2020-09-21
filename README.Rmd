@@ -1,0 +1,30 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README",
+  out.width = "100%"
+)
+```
+
+# lcmrl4jecs
+
+This package is to implement the LCMRL code developed by Dr Steven C. Wendelken at US EPA into a package. This is not inteded for distribution.
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+## Installation
+
+You can install the development version of lcmrl4jecs from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("fabregithub/lcmrl4jecs")
+```
