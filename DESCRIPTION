@@ -1,6 +1,6 @@
 Package: lcmrl4jecs
 Type: Package
-Title: This package is to impletement US EPA's LCMRL R code kindly provided by Dr Steven C. Wendelken.
+Title: This package is to impletement US EPA's LCMRL R code kindly provided by Dr Steven C. Wendelken
 Version: 0.0.0.999
 Authors@R: person(given = "Shoji", family = "Nakayama", role = c("aut", "cre"), email = "fabre@nies.go.jp")
 Description: Original code was developed by Dr Steven C. Wendelken. This package is not for distribution but only for the internal use.
@@ -14,6 +14,13 @@ Suggests:
     knitr,
     rmarkdown
 Imports:
+    car,
+    grDevices,
+    graphics,
+    lattice,
+    methods,
+    stats,
+    utils
 Language: en-GB
 VignetteBuilder: knitr
 Depends: 

@@ -1,24 +1,18 @@
-#  Nov 11 2009
-#
-# MRL LCMRL Estimation R Scripts
-#
-#####################################################################
-# ---------------------Libraries Needed -----------------------------
-# Bob's Default Working Directory
-#setwd('C:\\Documents and Settings\\robert.obrien\\My Documents\\Projects 2009\\EPA LCMRL\\Working Version MRL.LCMRL.Stats 11.11.2009\\April 2009 Problems' )
-#Steve's Default Working Directory
-#setwd('C:\\Data')
+#' MRL LCMRL estimatation scripts
+#'
 
- library(car)           #needed for MRL.Output  need version 2.0-0
- library(lattice)       # needed for densityplot() in MRL.Stats
+#' MRL.Summary
+#'
+#' @param fh.labdata lab data
+#' @param rnnr rnnr
+#' @param biter biter
+#' @param Seed seed
+#' @param abbr.out abbreviation
+#'
+#' @export
+#'
 
-# --------------------- End Libraries Needed ------------------------
-#####################################################################
-
-####################################################################
-# ---------------------start MRL.Summary ---------------------------------
-
-MRL.Summary <- function(fh.labdata,rnnr=1,biter=200,Seed=0261948,abbr.out=TRUE)
+MRL.Summary <- function(fh.labdata, rnnr=1, biter=200, Seed=0261948, abbr.out=TRUE)
    {
    # ----------------Outputs------------------------------------
    #  via MRL.Stats
@@ -45,7 +39,7 @@ MRL.Summary <- function(fh.labdata,rnnr=1,biter=200,Seed=0261948,abbr.out=TRUE)
    #  "analyte.name".RData = R adata file by simulated MRL data
    #  "fh".LCMRL.Graphs.pdf = pdf files of LCRML graphs
    #  "fh".DensityPlots.pdf = pdf files for density plots of simulated LCMRL values
-   
+
    # ----------------Inputs-------------------------------------
    #
    # fh.labdata = filehandle (name) with multi laboratory data in csv format
@@ -64,9 +58,9 @@ MRL.Summary <- function(fh.labdata,rnnr=1,biter=200,Seed=0261948,abbr.out=TRUE)
    # abbr.out = logical flag for type of output data for MRL summary
    #            TRUE is default
    #            False for extended Output which includeds unweighted table summaries
-   
-   
-   
+
+
+
    # Estimate MRL Summary Stats & Output Files
    MRL.Stats(fh.labdata,rnnr,biter,Seed,Abbr=abbr.out)
    # Set up density plots of Boostrapped LCMRL Estiamtes by Labs, All Labs & Predicted Lab
@@ -83,13 +77,21 @@ MRL.Summary <- function(fh.labdata,rnnr=1,biter=200,Seed=0261948,abbr.out=TRUE)
       }
    dev.off()
    }
-# --------------------- End MRL Summary------------------------
-#####################################################################
 
-####################################################################
-# ---------------------start LCMRL.Values ---------------------------------
 
- LCMRL.Values <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
+#' LCRML.Values function
+#'
+#' @param fh file
+#' @param LQL lower quantitation limit
+#' @param UQL upper quantitation limit
+#' @param CPR CPR
+#' @param alph alpha
+#' @param bet beta
+#' @param rnnr rnnr
+#'
+#' @export
+#'
+LCMRL.Values <- function(fh, LQL=0.5, UQL=1.5, CPR=0.99, alph=0.05, bet=0.05, rnnr=1)
    {
 
    # try to read multi-lab data file in csv format
@@ -174,13 +176,20 @@ MRL.Summary <- function(fh.labdata,rnnr=1,biter=200,Seed=0261948,abbr.out=TRUE)
    write.csv(Table,outfh,row.names=FALSE)
    return("end of processing")
    }
-# --------------------- End LCMRL.Values ------------------------
-#####################################################################
 
-
-####################################################################
-# ---------------------start MRL.Summary ---------------------------------
-LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
+#' LCMRL.Graphs
+#'
+#' @param fh file
+#' @param LQL lower quantitation limit
+#' @param UQL upper quantitation limit
+#' @param CPR CPR
+#' @param alph alpha
+#' @param bet beta
+#' @param rnnr rnnr
+#'
+#' @export
+#'
+LCMRL.Graphs <- function(fh, LQL=0.5, UQL=1.5, CPR=0.99, alph=0.05, bet=0.05, rnnr=1)
    {
    fh.a <- strtrim(fh,nchar(fh)-4)
    outfh <- paste("LCMRL.Values.Tables.",fh,sep="")
@@ -256,13 +265,18 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
 
    return("end of processing")
    }
-# --------------------- End LCMRL.Graphs ------------------------
-#####################################################################
 
-####################################################################
-# ---------------------start MRL.Stats ---------------------------------
-
- MRL.Stats <- function(fh,rnnr=1,boot.iter=200,Seed=0261948, Abbr=TRUE)
+#' MRL.Stats
+#'
+#' @param fh file
+#' @param rnnr rnnr
+#' @param boot.iter iteration number
+#' @param Seed seed
+#' @param Abbr abbreviation
+#'
+#' @export
+#'
+MRL.Stats <- function(fh, rnnr=1, boot.iter=200, Seed=0261948, Abbr=TRUE)
    {
 
    # ----------------Outputs------------------------------------
@@ -305,9 +319,9 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
 # -------------------------Begin MRL.Stats ------------------------------
 
    # try to read multi-lab data file in csv format
-   
+
    # values for test runs
-   
+
    fh.a <- strtrim(fh,nchar(fh)-4)
    outfh <- paste("MRL.Tables.",fh,sep="")
 
@@ -317,7 +331,7 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
    write("",outfh,append=TRUE)
    write(paste("Random Seed =",Seed),outfh,append=TRUE)
    write("",outfh,append=TRUE)
-   
+
    dat <- try(read.csv(fh,as.is=T),silent=TRUE)
    if( class(dat)[1]=="try-error")
       {
@@ -381,7 +395,7 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
 
       #labflag <- vector("numeric",numlabs)
       time1 <- Sys.time()
-      
+
       print(paste("-*-*-*-* Determining which labs have usable LCMRLs"))
       for( i in 1:numlabs)
          {
@@ -511,15 +525,22 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
       }
    return("end of processing")
    }
-# --------------------- End MRL.Stas ------------------------
-#####################################################################
 
-####################################################################
-# ---------------------start MRL.Output ---------------------------------
-
- MRL.Output <- function(An,U,BB.tmp2,labflag,LCMRL.val,boot.iter,outfh,fh.a,Abbr=TRUE)
+#' MRL.Output
+#'
+#' @param An An
+#' @param U U
+#' @param BB.tmp2 BB.tmp2
+#' @param labflag labflag
+#' @param LCMRL.val LCMRL value
+#' @param boot.iter number of iterations
+#' @param outfh output file
+#' @param fh.a file
+#' @param Abbr abbreviations
+#'
+MRL.Output <- function(An, U, BB.tmp2, labflag, LCMRL.val, boot.iter, outfh, fh.a, Abbr=TRUE)
    {
-   
+
    #densityplots of individual Labs
    labs <- unique(BB.tmp2[,1])
    numlabs <- length(labs)
@@ -600,7 +621,7 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
       {
       xij <- exp(xij)
       }
-      
+
    BB.x <- oldBBx
    Table2 <- matrix(0,22,numlabs+2)
    tlabs <-c(as.character(labs),"ALL Labs","Predicted Lab")
@@ -667,7 +688,7 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
                   guttman.utl(xij,0.95,0.90),guttman.utl(xij,0.95,0.95))
    Table3[1,(numlabs+1):(numlabs+2)] <- c("","")
    Table3[2:6,1:numlabs] <- ""
-   write.csv(Table3,outfh,,append=TRUE,row.names=c("LCMRL Value","95-70 UTL","95-75 UTL",
+   write.csv(Table3,outfh,append=TRUE,row.names=c("LCMRL Value","95-70 UTL","95-75 UTL",
                                                 "95-80 UTL","95-90 UTL",
                                                 "95-95 UTL"))
    write("",outfh,append=TRUE)
@@ -712,9 +733,9 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
       { BB.x[,2] <- log(BB.x[,2])}
    med.x <- median(BB.x[,2])
    mad.x <- mad(BB.x[,2])
-   BB.x.wgt.lst <- wt.bw.1.sided(BB.x[,2],med.x,mad.x,c=6,reltol=1e-6,maxsteps=100)
+   BB.x.wgt.lst <- wt.bw.1.sided(BB.x[,2],med.x,mad.x,cc=6,reltol=1e-6,maxsteps=100)
    if(any(BB.x.wgt.lst[[2]] == 0 ))
-      {BB.x.wgt.lst <- wt.bw.1.sided(BB.x[,2],med.x,mad.x,c=9,reltol=1e-6,maxsteps=100)}
+      {BB.x.wgt.lst <- wt.bw.1.sided(BB.x[,2],med.x,mad.x,cc=9,reltol=1e-6,maxsteps=100)}
    BB.x <- cbind(BB.x[1],BB.x[2],BB.x.wgt.lst[[2]])
    BB.labx <- split(BB.x[,2],BB.x[,1])
    BB.labwts <- split(BB.x[,3],BB.x[,1])
@@ -757,8 +778,8 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
    wt.x <- unlist(BB.labwts)[sxij$ix]
    BB.labels <- unlist(BB.labels)[sxij$ix]
 
-      
-      
+
+
    utl70 <- wgt.guttman.utl(xij,wt.x,.95,.70)
    utl75 <- wgt.guttman.utl(xij,wt.x,.95,.75)
    utl80 <- wgt.guttman.utl(xij,wt.x,.95,.80)
@@ -767,13 +788,13 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
    Table4[2:6,numlabs+2] <- c(utl70,utl75,utl80,utl90,utl95)
    Table4[1,(numlabs+1):(numlabs+2)] <- c("","")
    Table4[2:6,1:numlabs] <- ""
-   write.csv(Table4,outfh,,append=TRUE,row.names=c("LCMRL Value","95-70 UTL","95-75 UTL",
+   write.csv(Table4,outfh,append=TRUE,row.names=c("LCMRL Value","95-70 UTL","95-75 UTL",
                                                 "95-80 UTL","95-90 UTL",
                                                 "95-95 UTL"))
-                                                
+
    comb.dat <- cbind("All Labs",st)
    comb.dat <- rbind(comb.dat,cbind("Predicted Lab",xij))
-   
+
    pos1 <- quantile(density(xij)$y,0.9)
    pos2 <- quantile(density(log10(xij))$y,0.9)
    BB.p <- na.omit(data.frame(BB.tmp2[,1],as.numeric(BB.tmp2[,2]),
@@ -809,7 +830,7 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
             panel.text(log10(utl75),posB,labels=paste(" MRL = ",sprintf("%.2f",utl75)),col=2,pos=4,cex=0.8)
             }
          )
-         
+
       # DENSITYPLOTS of Weighted ALL LABS & PREDICTED LAB
       dplot3 <- densityplot(~as.numeric(comb.dat[,2])|as.factor(comb.dat[,1]),
          layout=c(1,2),xlab="Spiking Level", na.rm=TRUE,
@@ -836,12 +857,21 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
    write("",outfh,append=TRUE)
    return(list(dplot1,dplot2,dplot3,dplot4))
    }
-# ---------------------end MRL.Output----------------------------------
-#######################################################################
 
-####################################################################
-# ---------------------BB.MRL Start ---------------------------------
- BB.MRL <- function(S,M,AN,U, biter=200,labnum=NULL, Seed,rnnr=1)
+#' BB.MRL
+#'
+#' @param S S
+#' @param M M
+#' @param AN AB
+#' @param U U
+#' @param biter biter
+#' @param labnum lab number
+#' @param Seed seed
+#' @param rnnr rnnr
+#'
+#' @export
+#'
+ BB.MRL <- function(S, M, AN, U, biter=200, labnum=NULL, Seed, rnnr=1)
    {
    #
    # This code performs a bayesian bootstrap on the spiking level and
@@ -896,15 +926,29 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
       }
    return(BB.1.mat)
    }
-# --------------------- BB.MRL End ---------------------------------
-####################################################################
 
-####################################################################
-# ---------------------Start RobLCMRL ---------------------------------
- RobLCMRL <- function(SpikeConc,MeasConc,AnalName,
-                     strUnits="ug/L",lowQL=0.5,upQL=1.5,
-                     CovProbReq=0.99,alpha=0.05,beta=0.05,ReqNonNegResponse=1,
-                     grphs=1,labnum=NULL,BW =rep(1,length(SpikeConc)))
+#' RobLCMRL
+#'
+#' @param SpikeConc spiked concentration
+#' @param MeasConc measured concentration
+#' @param AnalName analyte names
+#' @param strUnits Units
+#' @param lowQL lower qunatiation limit
+#' @param upQL upper quantitation limit
+#' @param CovProbReq covprobreq
+#' @param alpha alpha
+#' @param beta beta
+#' @param ReqNonNegResponse required non negative response
+#' @param grphs graphs
+#' @param labnum lab number
+#' @param BW BW
+#'
+#' @export
+#'
+ RobLCMRL <- function(SpikeConc, MeasConc, AnalName,
+                     strUnits="ug/L", lowQL=0.5, upQL=1.5,
+                     CovProbReq=0.99, alpha=0.05, beta=0.05, ReqNonNegResponse=1,
+                     grphs=1, labnum=NULL, BW =rep(1,length(SpikeConc)))
 # ----------------Outputs------------------------------------
 # Returns a list with names:
 #
@@ -964,14 +1008,14 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
    xorg <- x    # save orgibnal x values
    yorg <- y    # save original y values
    BWorig <- BW
-   
+
    ###
    # Data Conditioning
    ###
-   
+
    # temporary fix, don't allow negative results if ReqNonNegResponse =1
    if( ReqNonNegResponse ==1) { y <- y*(y>=0) }
-    
+
 
    MinNZResp <- min(y[y>0])    # find min NZ response
 	ZeroSubstVal <- MinNZResp/2 # 0 response substitution value for certain situations
@@ -1091,7 +1135,7 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
                                  'LCMRLResultMessage')
       return(dat.tmp)
       }
-      
+
    #Check for 0 variances
    if (all(RobVars == 0 ) )
       {
@@ -1163,7 +1207,7 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
    CovProbMat <- LCMRL.tmp[[2]]
    LCMRLResultFlag <- LCMRL.tmp[[3]]
    LCMRLResultMessage <- LCMRL.tmp[[4]]
-   
+
    # for MRL calculations return only LCMRLval & LCMRLResultflag
    if( !all(BW == 1) ) { return(c(LCMRLval,LCMRLResultFlag )) }
 
@@ -1177,7 +1221,7 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
       HVDL.lst <- HubauxVos(MeanFnPar,VarFnPar,MSEFnPar,alpha,beta,
                          LCMRLval,SpikeLevels,ReqNonNegResponse,ZeroRespFlag)
       }
-      
+
    DLval <- HVDL.lst[[1]]
    CLval <- HVDL.lst[[2]]
    HVResultFlag <- HVDL.lst[[3]]
@@ -1326,12 +1370,18 @@ LCMRL.Graphs <- function(fh,LQL=0.5,UQL=1.5,CPR=0.99,alph=0.05,bet=0.05,rnnr=1)
         'MeanFnPar','VarFnPar','MSEFnPar')
       return(dat.tmp)
    }
-# -------------------------End RobLCMRL------------------------------
-####################################################################
 
-####################################################################
-# ---------------------Start RobRepVar ---------------------------------
-RobRepVar <- function (X,Y,cc=9,k=1,aPwts)
+#' RobRepVar
+#'
+#' @param X X
+#' @param Y Y
+#' @param cc cc
+#' @param k k
+#' @param aPwts aPwts
+#'
+#' @export
+#'
+RobRepVar <- function (X, Y, cc=9, k=1, aPwts)
 
 # computes replicate variances at various spiking levels,
 # degrees of freedom and weights for modeling
@@ -1396,12 +1446,19 @@ RobRepVar <- function (X,Y,cc=9,k=1,aPwts)
     }
     return(list(SL, RVars, RLoc, RWt, RVarDoF, nLs))
    }
-# -------------------------End RobRepVar----------------------------
-####################################################################
 
-####################################################################
-# ---------------------Start roblocvar4 ----------------------------
-roblocvar4 <- function(XX, cc=9, k=1, convtype=0,Pwts=rep(1,length(XX)))
+#' roblocvar4
+#'
+#' @param XX XX
+#' @param cc cc
+#' @param k k
+#' @param convtype conversion type
+#' @param Pwts Pwts
+#'
+#' @export
+#'
+#'
+roblocvar4 <- function(XX, cc=9, k=1, convtype=0, Pwts=rep(1,length(XX)))
    {
    # roblocvar computes M-estimators of location and also returns weight vector
    #
@@ -1453,7 +1510,7 @@ roblocvar4 <- function(XX, cc=9, k=1, convtype=0,Pwts=rep(1,length(XX)))
    scal <- 1.4826*mean(abs(XX-rloc))
    ##print(paste("intial.roloc:",rloc))
    ##print(paste("intial.scal:",scal))
-   
+
    # compute Huber(1.0) M-estimate of location and associated weights
    rl_old <- rloc
    delta <- 1
@@ -1516,14 +1573,17 @@ roblocvar4 <- function(XX, cc=9, k=1, convtype=0,Pwts=rep(1,length(XX)))
    return(list(rloc,rvar,rwtsBW,nw))
    }
 
-# -----------------------End roblocvar4 --------------------------------
-#######################################################################
 
-
-#######################################################################
-# ---------------------Start HuberWt ----------------------------------
-
-HuberWt <- function(x,m,s,k)
+#' HuberWt
+#'
+#' @param x data
+#' @param m mean
+#' @param s standard deviation
+#' @param k k
+#'
+#' @export
+#'
+HuberWt <- function(x, m, s, k)
    {
    u <- (x-m)/s
    nu <- length(u)
@@ -1536,23 +1596,31 @@ HuberWt <- function(x,m,s,k)
    return(rwts/sum(rwts))
    }
 
-# -----------------------End HuberWt -----------------------------------
-#######################################################################
 
-#######################################################################
-# ---------------------BlendWts ------------------------------------
-BlendWts <- function(wt1,wt2)
+#' BlendWts
+#'
+#' @param wt1 weight 1
+#' @param wt2 weight 2
+#'
+#' @export
+#'
+BlendWts <- function(wt1, wt2)
    {
    wt <- wt1*wt2
    wt <- wt/sum(wt)
    return(wt)
    }
-# -----------------------End BlendWts ---------------------------------
-#######################################################################
 
-#######################################################################
-# ---------------------Start BisquareWt -------------------------------
-BisquareWt <- function(x,m,scal,cc)
+#' BisquareWt
+#'
+#' @param x data
+#' @param m mean
+#' @param scal scal
+#' @param cc cc
+#'
+#' @export
+#'
+BisquareWt <- function(x, m, scal, cc)
    {
    u <- (x - m)/(cc*scal)   #c=9  tunig constant
    tu <- (abs(u)<=1)
@@ -1560,13 +1628,16 @@ BisquareWt <- function(x,m,scal,cc)
    rwts <- rwts/sum(rwts)
    return(rwts)
    }
-# -----------------------End BisquareWt -------------------------------
-#######################################################################
 
-#######################################################################
-# ---------------------Start w.var ------------------------------------
 
-w.var <- function(xx,wts)
+#' x.var
+#'
+#' @param xx data
+#' @param wts weights
+#'
+#' @export
+#'
+w.var <- function(xx, wts)
    {
    n <- length(xx)
    normwts <- wts/sum(wts)
@@ -1575,13 +1646,14 @@ w.var <- function(xx,wts)
    return(vx)
    }
 
-# -----------------------End w.var -----------------------------------
-#######################################################################
-
-#######################################################################
-# -----------------------Start VarFn ----------------------------------
-
-VarFn <- function (xv,VFnP )
+#' VarFn
+#'
+#' @param xv xv
+#' @param VFnP VFnP
+#'
+#' @export
+#'
+VarFn <- function (xv,VFnP)
   {
   epsilon <- 1
   xv <- xv*(xv > 0)
@@ -1593,13 +1665,14 @@ VarFn <- function (xv,VFnP )
   return(v)
   }
 
-# -----------------------End VarFn -----------------------------------
-#######################################################################
-
-#######################################################################
-# ---------------------Start MeanFn -----------------------------------
-
-MeanFn <- function(xm,MFP)
+#' MeanFn
+#'
+#' @param xm mean
+#' @param MFP MFP
+#'
+#' @export
+#'
+MeanFn <- function(xm, MFP)
   {
   switch(MFP$type,
     'linear'=
@@ -1614,12 +1687,15 @@ MeanFn <- function(xm,MFP)
   return(mu)
   }
 
-# -----------------------End MeanFn -----------------------------------
-#######################################################################
-
-#######################################################################
-# -------------------------Start VarMod------------------------------
-VarMod<- function (SL, RV, RVDF)
+#' VarMod
+#'
+#' @param SL SL
+#' @param RV RV
+#' @param RVDF RVDF
+#'
+#' @export
+#'
+VarMod <- function (SL, RV, RVDF)
 
    # VarModdev function
    #
@@ -1656,7 +1732,7 @@ VarMod<- function (SL, RV, RVDF)
    A <- max(sum(RV[ndx]*RVDF[ndx])/sum(RVDF[ndx]),1e-8)
    B <- exp(lBC$coefficients[1])
    CC <-min(max(0, lBC$coefficients[2]),maxC)
-   
+
    newCoef <- OptABC(A,B,CC,SL,RV,RVDF)
    A <- newCoef[1]; names(A) <- 'constant'
    B <- newCoef[2]; names(B) <- 'slope'
@@ -1694,13 +1770,17 @@ VarMod<- function (SL, RV, RVDF)
    return(VFnP)
    }
 
-# -------------------------End VarMod------------------------------
-#######################################################################
 
-#######################################################################
-#-------------------------Start VfnLoss------------------------------
-#
-VfnLoss <-function(x,S,V,DF)
+#' VfnLoss
+#'
+#' @param x data
+#' @param S S
+#' @param V V
+#' @param DF DF
+#'
+#' @export
+#'
+VfnLoss <-function(x, S, V, DF)
    {
    maxC <- 2
    BigLoss <- 1e12
@@ -1719,13 +1799,19 @@ VfnLoss <-function(x,S,V,DF)
       }
    return(loss)
    }
-#
-# -------------------------End VfnLoss------------------------------
-#######################################################################
 
-#######################################################################
-# -------------------------Start OptABC------------------------------
-OptABC <-function (A,B,CC,SL,RV,RVDF)
+#' OptABC
+#'
+#' @param A A
+#' @param B B
+#' @param CC CC
+#' @param SL SL
+#' @param RV RV
+#' @param RVDF RVDF
+#'
+#' @export
+#'
+OptABC <-function (A, B, CC, SL, RV, RVDF)
    {
 
    # initialize variables
@@ -1733,12 +1819,12 @@ OptABC <-function (A,B,CC,SL,RV,RVDF)
    delta <- -1
    maxiter <- 5
    eps <- 1e-4
-   
+
    x <-c(A,B,CC)
    rslt <- optim(x,VfnLoss,control=list(abstol=1e-16,reltol=1e-16,maxit=10000),S=SL,V=RV,DF=RVDF)
    fold <- rslt$value
    iter <- 1
-   
+
    while ( (delta <= -eps ) && (iter < maxiter) )
       {
       rslt <- optim(rslt[[1]],VfnLoss,control=list(abstol=1e-16,reltol=1e-16,maxit=10000),S=SL,V=RV,DF=RVDF)
@@ -1756,14 +1842,23 @@ OptABC <-function (A,B,CC,SL,RV,RVDF)
    if (CC > maxC)  CC <- maxC
    return(c(A,B,CC))
    }
-#
-# -------------------------End OptABC------------------------------
-#######################################################################
 
-#######################################################################
-#-----------------------Start IRLS ----------------------------------
-
-IRLS <- function(xx,yy,VFnP,Wts,RNNR,theta,maxIter,grphs=1,LN=NULL,BW)
+#' IRLS
+#'
+#' @param xx xx
+#' @param yy yy
+#' @param VFnP VFnP
+#' @param Wts weights
+#' @param RNNR RNNR
+#' @param theta theta
+#' @param maxIter max iteration
+#' @param grphs graphs
+#' @param LN NL
+#' @param BW BW
+#'
+#' @export
+#'
+IRLS <- function(xx, yy, VFnP, Wts, RNNR, theta, maxIter, grphs=1, LN=NULL, BW)
    # WLS computes Iteratively Reweighted Least Squares regressions estimates
    # covB using variance and MSE function models
    #
@@ -1797,7 +1892,7 @@ IRLS <- function(xx,yy,VFnP,Wts,RNNR,theta,maxIter,grphs=1,LN=NULL,BW)
    cc <- 9  # initial tuing constant for biweight estimator
    converged <- 1
 
-   
+
    #print(paste("###### start IRLS"))
    #print(paste("########### cc =",cc))
    ############
@@ -1892,7 +1987,7 @@ IRLS <- function(xx,yy,VFnP,Wts,RNNR,theta,maxIter,grphs=1,LN=NULL,BW)
    mse.t <- compMSE(xx,resids,cc,k,oldMSEfnPar2,BW); #compute MSE fn
    oldMSEfnPar3 <- mse.t[[1]]
    oldcMSE3 <- mse.t[[2]]
-   
+
    #print("####### end of first WLS call")
    #print(t(DX3))
    #print(oldB3)
@@ -1919,7 +2014,7 @@ IRLS <- function(xx,yy,VFnP,Wts,RNNR,theta,maxIter,grphs=1,LN=NULL,BW)
    # initially try IRLS with c=9
    # if any model fails to converge, go to c=9 for all models
    cc <- 9; # initial value for Tukey's biweight (BW) parameter
-   
+
 
    all.irls <- compAllIRLS(xx,DX,DX2,DX3,DX4,yy,VFnP,oldMSEfnPar1,oldB1,
                            oldMSEfnPar2,oldB2,oldMSEfnPar3,oldB3,
@@ -2056,17 +2151,40 @@ IRLS <- function(xx,yy,VFnP,Wts,RNNR,theta,maxIter,grphs=1,LN=NULL,BW)
    return(list(MFnP,MSEFnP,R2adj,Cp,pred,resids,residPearson,S_StdRes,cMSE,
           cmseSL,M.model))
    }
-#
-# -------------------------End IRLS code------------------------------
-#######################################################################
 
-#######################################################################
-# -------------------------Start compAllIRLS------------------------------
-#
-compAllIRLS <- function(x,DX,DX2,DX3,DX4,y,VFnP,
-                        oldMSEfnPar1,oldB1, oldMSEfnPar2,oldB2,
-                        oldMSEfnPar3,oldB3,oldMSEfnPar4,oldB4,
-                        cc,k,RNNR,theta,maxIter,grphs,LN,BW)
+#' compAllIRLS
+#'
+#' @param x x
+#' @param DX DX
+#' @param DX2 DX2
+#' @param DX3 DX3
+#' @param DX4 DX4
+#' @param y y
+#' @param VFnP VFnP
+#' @param oldMSEfnPar1 oldMSEfnPar1
+#' @param oldB1 oldB1
+#' @param oldMSEfnPar2 oldMSEfnPar2
+#' @param oldB2 oldB2
+#' @param oldMSEfnPar3 oldMSEfnPar3
+#' @param oldB3 oldB3
+#' @param oldMSEfnPar4 oldMSEfnPar4
+#' @param oldB4 oldB4
+#' @param cc cc
+#' @param k k
+#' @param RNNR RNNR
+#' @param theta theta
+#' @param maxIter max iteration
+#' @param grphs graphs
+#' @param LN LN
+#' @param BW BW
+#'
+#' @export
+#'
+#'
+compAllIRLS <- function(x, DX, DX2, DX3, DX4, y, VFnP,
+                        oldMSEfnPar1, oldB1, oldMSEfnPar2, oldB2,
+                        oldMSEfnPar3, oldB3, oldMSEfnPar4, oldB4,
+                        cc, k, RNNR, theta, maxIter, grphs, LN, BW)
    {
    converged <- 1
 
@@ -2148,17 +2266,31 @@ compAllIRLS <- function(x,DX,DX2,DX3,DX4,y,VFnP,
                 m.model.1,m.model.2,m.model.3,m.model.4, #22
                 nw1,nw2,nw3))                            #25
     }
-#
-#-------------------------End compAllIRLS------------------------------
-########################################################################
 
-########################################################################
-# -------------------------Start compIRLS------------------------------
+#' compIRLS
+#'
+#' @param xx xx
+#' @param DX DX
+#' @param yy yy
+#' @param VFnP VFnP
+#' @param MSEFnP MSEFnP
+#' @param B B
+#' @param cc cc
+#' @param k k
+#' @param RNNR RNNR
+#' @param theta theta
+#' @param maxIter max iteration
+#' @param grphs graph
+#' @param LN LN
+#' @param BW BW
+#'
+#' @export
+#'
 #
 #function [B,seB,mse,covB,p,MSEfnPar,cMSE,cmseSpikeLevels,converged,...
 #  IsError,Err] = compIRLS(x,DX,y,VarFnPar,MSEfnPar,B,c,k,...
 #  ReqNonNegResponse,theta,maxIter)
-compIRLS <- function(xx,DX,yy,VFnP,MSEFnP,B,cc,k,RNNR,theta,maxIter,grphs,LN,BW)
+compIRLS <- function(xx, DX, yy, VFnP, MSEFnP, B, cc, k, RNNR, theta, maxIter, grphs, LN, BW)
    {
    converged <- 1  # intialize converge to 1 meaning convergence is TRUE
    innerEpsilon <- 1
@@ -2204,14 +2336,22 @@ compIRLS <- function(xx,DX,yy,VFnP,MSEFnP,B,cc,k,RNNR,theta,maxIter,grphs,LN,BW)
             mean.model,nw))
    }
 
+#' compWLS
+#'
+#' @param x x
+#' @param DX DX
+#' @param y y
+#' @param VFnPar VFnPar
+#' @param MSEFnP MSEFnP
+#' @param oldB oldB
+#' @param cc cc
+#' @param RNNR RNNR
+#' @param BW BW
+#'
+#' @export
+#'
 #
-# -------------------------End compIRLS------------------------------
-########################################################################
-
-#######################################################################
-# -------------------------Start compWLS------------------------------
-#
-compWLS <-function (x,DX,y,VFnPar,MSEFnP,oldB,cc,RNNR,BW)
+compWLS <-function (x, DX, y, VFnPar, MSEFnP, oldB, cc, RNNR, BW)
    {
 
    # get minimum nonzero response
@@ -2247,14 +2387,20 @@ compWLS <-function (x,DX,y,VFnPar,MSEFnP,oldB,cc,RNNR,BW)
 
    }
 
-# -------------------------End compWLS------------------------------
-########################################################################
-
-#######################################################################
-# -------------------------Start compMSE------------------------------
+#' compMSE
+#'
+#' @param X x
+#' @param Resids Resids
+#' @param cc cc
+#' @param k k
+#' @param VFnP VFnP
+#' @param BW BW
+#'
+#' @export
+#'
 #
 #function [MSEfnPar,cMSE,cmseSpikeLevels,IsError,Err] = compMSE(X,resids,c,k)
-compMSE <- function(X,Resids,cc,k,VFnP,BW)
+compMSE <- function(X, Resids, cc, k, VFnP, BW)
    {
    # compute (conditional) mean squared error (MSE) by spiking level
    ## compute (conditional) mean squared error (MSE) by spiking level
@@ -2303,15 +2449,20 @@ compMSE <- function(X,Resids,cc,k,VFnP,BW)
    #print("## end compMSE")
    return(list(mse.tmp,cMSE,cmseSL))
    }
-#
-# -------------------------End compMSE------------------------------
-#######################################################################
 
-#######################################################################
-# -------------------------start robCondMSE------------------------------
+#' robCondMSE
+#'
+#' @param X x
+#' @param Resids Resids
+#' @param cc cc
+#' @param k k
+#' @param BW BW
+#'
+#' @export
+#'
 #function [robMSE,SpikeLevels, nLevels, MSEcnt,IsError, Err] ...
 #    = robCondMSE(X,resids,c,k)
-robCondMSE <- function(X,Resids,cc,k,BW)
+robCondMSE <- function(X, Resids, cc, k, BW)
    {
    # RepVar function
    #
@@ -2334,7 +2485,7 @@ robCondMSE <- function(X,Resids,cc,k,BW)
    # c = tuning constant for biweight
    # k = threshold for Huber estimator
    #
-   
+
    # check for 0 variance at spiking level (method blanks with all 0 results)
    # and remove for replicate variance model calc
    if(X[1]==0)
@@ -2371,13 +2522,18 @@ robCondMSE <- function(X,Resids,cc,k,BW)
       }
     return(list(robmse, SL, nLs, nw))
     }
-# -----------------------End robCondMSE ---------------------------------
-#######################################################################
 
-#######################################################################
-#-------------------------Start MseMod------------------------------
-#
-MseMod <- function (SL, RMse, MDF,MsePar)
+#' MseMod
+#'
+#' @param SL SL
+#' @param RMse RMSE
+#' @param MDF MDF
+#' @param MsePar MsePar
+#'
+#' @export
+#'
+
+MseMod <- function (SL, RMse, MDF, MsePar)
    #
    # computes Gamma nl model for replicate variance at various spiking
    # levels
@@ -2446,21 +2602,27 @@ MseMod <- function (SL, RMse, MDF,MsePar)
       }
    return(MFnP)
    }
-#
-# -------------------------End MseMod------------------------------
-#######################################################################
 
-#######################################################################
-# -----------------------Start feq ---------------------------------
-feq <- function(x,y,tol)
+#' feq
+#'
+#' @param x x
+#' @param y y
+#' @param tol tolerance
+#'
+#' @export
+#'
+feq <- function(x, y, tol)
    {
    return(abs(x-y) <= tol)
-   }
-# -----------------------end  feq  ---------------------------------
-#######################################################################
+}
 
-#######################################################################
-# ---------------------Start GammaPar ---------------------------------
+#' GammaPar
+#'
+#' @param mu mean
+#' @param v variance
+#'
+#' @export
+#'
 GammaPars <- function(mu, v)
 
    # GammaPars Function
@@ -2480,14 +2642,26 @@ GammaPars <- function(mu, v)
    B <- v/mu
    A <- mu/B
    return(list(A,B))
-   }
-# -----------------------End GammaPar ---------------------------------
-#######################################################################
+}
 
-#######################################################################
-# -------------------------Start covProb------------------------------
 
-covProb <- function(xc,LQL,UQL,MFP,VFP,MSEFP,CPR,nn,xxbar,ssxx,RNNR)
+#' covProb
+#'
+#' @param xc xc
+#' @param LQL LQL
+#' @param UQL UQL
+#' @param MFP MFP
+#' @param VFP VFP
+#' @param MSEFP MSEFP
+#' @param CPR CPR
+#' @param nn nn
+#' @param xxbar xxbar
+#' @param ssxx ssxx
+#' @param RNNR RNNR
+#'
+#' @export
+#'
+covProb <- function(xc, LQL, UQL, MFP, VFP, MSEFP, CPR, nn, xxbar, ssxx, RNNR)
    {
    if( RNNR == 1)
       {
@@ -2511,13 +2685,23 @@ covProb <- function(xc,LQL,UQL,MFP,VFP,MSEFP,CPR,nn,xxbar,ssxx,RNNR)
    return(cvP)
    }
 
-# -------------------------End covProb---------------------------------
-#######################################################################
-
-#######################################################################
-# -------------------------Start GammaEstFn----------------------------
-
-GammaEstFn <-function(xs,LQL,UQL,MFP,VFP,MSEFP,CPR,nn,xxbar,ssxx,RNNR)
+#' GammaEstFn
+#'
+#' @param xs xs
+#' @param LQL LQL
+#' @param UQL UQL
+#' @param MFP MFP
+#' @param VFP VFP
+#' @param MSEFP MSEFP
+#' @param CPR CPR
+#' @param nn nn
+#' @param xxbar xxbar
+#' @param ssxx ssxx
+#' @param RNNR RNNR
+#'
+#' @export
+#'
+GammaEstFn <-function(xs, LQL, UQL, MFP, VFP, MSEFP, CPR, nn, xxbar, ssxx, RNNR)
    # GammaEstFn function
    #
    # Estimating function for difference between probability content of gamma
@@ -2568,12 +2752,24 @@ GammaEstFn <-function(xs,LQL,UQL,MFP,VFP,MSEFP,CPR,nn,xxbar,ssxx,RNNR)
    }
 
 
-# -------------------------End GammaEstFn-----------------------------
-#######################################################################
-
-#######################################################################
-# -------------------------Start srchLCMRL-------------------------------
-srchLCMRL <-function (SL,LQL,UQL,MFP,VFP,MSEFP,CPR,nn,xxbar,ssxx,RNNR,LLLCMRL)
+#' srchLCMRL
+#'
+#' @param SL SL
+#' @param LQL LQL
+#' @param UQL UQL
+#' @param MFP MFP
+#' @param VFP VFP
+#' @param MSEFP MSEFP
+#' @param CPR CPR
+#' @param nn nn
+#' @param xxbar xxbar
+#' @param ssxx ssxx
+#' @param RNNR RNNR
+#' @param LLLCMRL LLLCMRL
+#'
+#' @export
+#'
+srchLCMRL <-function (SL, LQL, UQL, MFP, VFP, MSEFP, CPR, nn, xxbar, ssxx, RNNR, LLLCMRL)
    {
    # Searches for value of x that sets GammaEstFn value to 0. This is the
    # estimated LCMRL
@@ -2644,7 +2840,7 @@ srchLCMRL <-function (SL,LQL,UQL,MFP,VFP,MSEFP,CPR,nn,xxbar,ssxx,RNNR,LLLCMRL)
     if ( ndxu > 2) { ndxl <- ndxu - 2 } else { ndxl <- ndxu - 1 }
     xl <- xgrid[ndxl]
     xu <- xgrid[ndxu]
-    
+
     # check again to see whether LCMRL is above highest spiking level
     if ( !all(GEFgrid[ndxu:100] > 0))
       {
@@ -2664,7 +2860,7 @@ srchLCMRL <-function (SL,LQL,UQL,MFP,VFP,MSEFP,CPR,nn,xxbar,ssxx,RNNR,LLLCMRL)
       LCMRL.lst <- try(uniroot(GammaEstFn,c(xl,xu),LQL=LQL,UQL=UQL,
                            MFP=MFP,VFP=VFP,MSEFP=MSEFP,CPR=CPR,
                            nn=nn,xxbar=xxbar,ssxx=ssxx,RNNR=RNNR,tol=1e-8))
-                           
+
       if( class(LCMRL.lst)[1]=="try-error")
          {
          ResultFlag <- -3
@@ -2672,7 +2868,7 @@ srchLCMRL <-function (SL,LQL,UQL,MFP,VFP,MSEFP,CPR,nn,xxbar,ssxx,RNNR,LLLCMRL)
          }
       }
    switch( as.character(ResultFlag),
-   
+
       '-5' = {ResultMessage <- 'LCMRL below lowest Spiking Level with all non-zero results: set equal to lowest spiking level with all non-zro results'
               CPMat <- 0},
       '-3' = {ResultMessage <- 'Nonconvergence' },
@@ -2691,13 +2887,22 @@ srchLCMRL <-function (SL,LQL,UQL,MFP,VFP,MSEFP,CPR,nn,xxbar,ssxx,RNNR,LLLCMRL)
    #print("############## end Search LCMRL")
    return(list(LCMRL.lst,CPMat,ResultFlag,ResultMessage))
    }
-#
-# -------------------------End srchLCMRL-------------------------------
-#######################################################################
 
-#######################################################################
-# ---------------------Start HubauxVos --------------------------------
-HubauxVos <- function (MFP,VFP,MSEFP,a,b,lcmrlval,sL,RNNR,ZRF)
+#' HubauxVos
+#'
+#' @param MFP MFP
+#' @param VFP VFP
+#' @param MSEFP MSEFP
+#' @param a a
+#' @param b b
+#' @param lcmrlval LCMRL value
+#' @param sL sL
+#' @param RNNR RNNR
+#' @param ZRF ZRD
+#'
+#' @export
+#'
+HubauxVos <- function (MFP, VFP, MSEFP, a, b, lcmrlval, sL, RNNR, ZRF)
    {
    # function HubauxVos
    #
@@ -2766,12 +2971,22 @@ HubauxVos <- function (MFP,VFP,MSEFP,a,b,lcmrlval,sL,RNNR,ZRF)
    return(list(DL,Lc,ResultFlag,ResultMessage))
    }
 
-#---------------------End HubauxVos ----------------------------------
-#######################################################################
-
-#######################################################################
-# ---------------------Start srchDL -----------------------------------
-srchDL <- function(lcmrlval,yc,sL,MFP,VFP,MSEFP,MV,b,RNNR,ZRF)
+#' srchDL
+#'
+#' @param lcmrlval lcmrl value
+#' @param yc yc
+#' @param sL sL
+#' @param MFP MFP
+#' @param VFP VFP
+#' @param MSEFP MSEFP
+#' @param MV MV
+#' @param b beta
+#' @param RNNR RNNR
+#' @param ZRF ZRF
+#'
+#' @export
+#'
+srchDL <- function(lcmrlval, yc, sL, MFP, VFP, MSEFP, MV, b, RNNR, ZRF)
    {
    #
    # Searches for value of x that sets DLEstFn value to 0. This is the
@@ -2878,14 +3093,21 @@ srchDL <- function(lcmrlval,yc,sL,MFP,VFP,MSEFP,MV,b,RNNR,ZRF)
    return(list(DLval, fval, ResultFlag, ResultMessage))
    }
 
-#
-# -------------------------End srchDL------------------------------
-#######################################################################
 
-#######################################################################
-# -------------------------Start DLEstFn-----------------------------
-
-DLEstFn <-function(xd,yc,MFP,VFP,MSEFP,MV,b,RNNR)
+#' DLEstFn
+#'
+#' @param xd xd
+#' @param yc yc
+#' @param MFP MFP
+#' @param VFP VFP
+#' @param MSEFP MSEFP
+#' @param MV MV
+#' @param b b
+#' @param RNNR RNNR
+#'
+#' @export
+#'
+DLEstFn <-function(xd, yc, MFP, VFP, MSEFP, MV, b, RNNR)
    {
    # DLEstFn function
    #
@@ -2936,12 +3158,16 @@ DLEstFn <-function(xd,yc,MFP,VFP,MSEFP,MV,b,RNNR)
    return(discrep)
    }
 
-# -------------------------End DLEstFn-----------------------------
-#######################################################################
 
-####################################################################
-# ---------------------Start Bayes.1.Boot ---------------------------------
-  Bayes.1.Boot <- function (xx, boot.iter,Seed)
+#' Bayes.1.Boot
+#'
+#' @param xx xx
+#' @param boot.iter boot iteration
+#' @param Seed seed
+#'
+#' @export
+#'
+  Bayes.1.Boot <- function (xx, boot.iter, Seed)
 
 # computes Bayesian Bootstrap prior weights for Monte Carlo of LCMRL,
 # Lc and HV-DL,
@@ -2975,10 +3201,15 @@ DLEstFn <-function(xd,yc,MFP,VFP,MSEFP,MV,b,RNNR)
       }
    return(wgt.mat)
    }
-# -------------------------End Bayes.1.Boot------------------------------
-####################################################################
-####################################################################
-# -------------------Start LCMRL.data.rand.pert--------------------------
+
+#' LCMRL.data.rand.pert
+#'
+#' @param spike spiked
+#' @param measured measured
+#' @param r.scale.sd r scale sd
+#'
+#' @export
+#'
 # LCMRL.data.rand.pert -- function to generate random scale perturbation
 # by spiking level of LCMRL data set
 #
@@ -2987,7 +3218,7 @@ DLEstFn <-function(xd,yc,MFP,VFP,MSEFP,MV,b,RNNR)
 # random scale factor b_i is gamma with mean 1 and std dev r.scale.sd
 # independent for each spiking level i
 
-LCMRL.data.rand.pert<-function(spike,measured,r.scale.sd=0.03) {
+LCMRL.data.rand.pert<-function(spike, measured, r.scale.sd=0.03) {
 
   spk.lev<-unique(spike)
   n.lev<-length(spk.lev)
@@ -3002,12 +3233,16 @@ LCMRL.data.rand.pert<-function(spike,measured,r.scale.sd=0.03) {
   return(measured*r.sv)
 
 }
-# -------------------End LCMRL.data.rand.pert----------------------------
-####################################################################
 
-#######################################################################
-# -------------------------Start VarWghts------------------------------
-   Varwgts <- function(xSL,BW,RW)
+#' VarWghts
+#'
+#' @param xSL xSL
+#' @param BW BW
+#' @param RW RW
+#'
+#' @export
+#'
+   Varwgts <- function(xSL, BW, RW)
    # This function c
    #
    # ----------------Inputs-------------------------------------
@@ -3031,13 +3266,15 @@ LCMRL.data.rand.pert<-function(spike,measured,r.scale.sd=0.03) {
    #return(tmp[,2]*dof/tot)
    return(tmp[,2]*dof)
    }
-# ------------------------- End VarWghts------------------------------
-#######################################################################
 
-#######################################################################
-# ------------------------- Start std.z------------------------------
-
-std.z <- function(x,locvar)
+#' std.z
+#'
+#' @param x x
+#' @param locvar location variable
+#'
+#' @export
+#'
+std.z <- function(x, locvar)
    # This function standarizes a list of vector of values x to a list of vectors random variable with 0
    # mean and unit variance
    #  x = a list of numeric vectors containg the LCMRLs of the BB by lab
@@ -3054,12 +3291,15 @@ std.z <- function(x,locvar)
       }
    return( std.res )
    }
-# ------------------------- End std.z------------------------------
-#######################################################################
 
-#######################################################################
-# ------------------------- Start std2.z------------------------------
-std2.z <- function(x,locvar)
+#' std2.z
+#'
+#' @param x x
+#' @param locvar location variable
+#'
+#' @export
+#'
+std2.z <- function(x, locvar)
    # This function standarizes a list of vector of values x to a list of vectors random variable with 0
    # mean and unit variance
    #  x = a list of numeric vectors containg the LCMRLs of the BB by lab
@@ -3076,13 +3316,16 @@ std2.z <- function(x,locvar)
       }
    return( std.res )
    }
-# ------------------------- End std2.z------------------------------
-#######################################################################
 
-#######################################################################
-# ------------------------- Start guttman.utl ------------------------------
-
-guttman.utl <- function(x,a=0.95,b=0.95)
+#' guttman.utl
+#'
+#' @param x x
+#' @param a alpha
+#' @param b beta
+#'
+#' @export
+#'
+guttman.utl <- function(x, a=0.95, b=0.95)
    # This function returns the Guttman's non-parametric UTL of a vector x of
    # values for given UTL coverage of b and desired comfidence a. Both a and
    # b are in (0,1).
@@ -3095,7 +3338,7 @@ guttman.utl <- function(x,a=0.95,b=0.95)
    #
    # utl =  upper tolerance limit of desired coverage
    #
-   
+
    {
    n <- length(x)
    p.est <- floor(b*n)
@@ -3106,12 +3349,15 @@ guttman.utl <- function(x,a=0.95,b=0.95)
    kutl <- match(min(dif),dif)
    return(as.vector(sort(x)[k[kutl]]))
    }
-# ------------------------- End guttman.utl------------------------------
-#######################################################################
 
-#######################################################################
-# ------------------------- Start wgt.guttman.utl ---------------------
-wgt.guttman.utl <- function(x,y,a=0.95,b=0.95)
+#' wgt.guttman.utl
+#'
+#' @param x x
+#' @param y y
+#' @param a alpha
+#' @param b beta
+#'
+wgt.guttman.utl <- function(x, y, a=0.95, b=0.95)
    {
    #
    # This function returns a one sided upper Guttman's non-parametric UTL of
@@ -3163,12 +3409,20 @@ wgt.guttman.utl <- function(x,y,a=0.95,b=0.95)
    utl <- slp*w.utl.p+cnst
    return(utl)
    }
-# ------------------------- End wgt.guttman.utl -----------------------
-#######################################################################
 
-#######################################################################
-# ------------------------- Start wt.bw.1.sided ---------------------
-wt.bw.1.sided<-function(x,rloc,rscale,cc=6,reltol=1e-6,maxsteps=100)
+#' wt.bw.1.sided
+#'
+#' @param x x
+#' @param rloc rloc
+#' @param rscale rscale
+#' @param cc cc
+#' @param reltol relocation tolerance
+#' @param maxsteps max steps
+#'
+#' @export
+#'
+#'
+wt.bw.1.sided<-function(x, rloc, rscale, cc=6, reltol=1e-6, maxsteps=100)
    {
    # compute weights for one-sided Biweight(c)
    # M-estimate of location
@@ -3190,6 +3444,4 @@ wt.bw.1.sided<-function(x,rloc,rscale,cc=6,reltol=1e-6,maxsteps=100)
       }
    return(list(loc=rloc,weights=rwtsBW))
    }
-# ------------------------- End wt.bw.1.sided -------------------------
-#######################################################################
 
