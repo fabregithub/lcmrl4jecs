@@ -81,7 +81,7 @@ following codes.
     write.table(pfas, file = 'pfasdata.csv', sep = ',', row.names = FALSE, col.names = FALSE)
 
     data(test)
-    write.table(test, file = 'pfasdata.csv', sep = ',', row.names = FALSE, col.names = FALSE)
+    write.table(test, file = 'testdata.csv', sep = ',', row.names = FALSE, col.names = FALSE)
 
 Creating the RStudio Computing Environment
 ==========================================
@@ -102,6 +102,14 @@ Verify Operation
 
 Follow the steps in [Running LCMRL Scripts](#running-lcmrl-scripts) to
 calculate LCMRLs for the five analytes in the test data input file.
+
+For `testdata.csv` you just created above, you can run the following
+scripts
+
+    fname <- 'testdata.csv'
+    LCMRL.Values(fname, rnnr = 1)
+    LCMRL.Graphs(fname, rnnr = 1)
+
 After processing is complete, open the working directory, and find the
 file named `LCMRL.values.testdata.csv`. Verify that the LCMRLs in Column
 B and the messages in Column G are identical to those listed in Table 1.
@@ -163,6 +171,8 @@ by a carriage return:
     LCMRL.Values(fname, rnnr = 1)
     LCMRL.Graphs(fname, rnnr = 1)
 
+Change `datafilename.csv` to your data file name.
+
 For LCMRL data sets that include negative values, three command lines
 are required to calculate LCMRLs and generate the graphs, each followed
 by a carriage return:
@@ -170,6 +180,8 @@ by a carriage return:
     fname <- 'datafilename.csv'
     LCMRL.Values(fname, rnnr = 0)
     LCMRL.Graphs(fname, rnnr = 0)
+
+Change `datafilename.csv` to your data file name.
 
 Procedure for Collecting LCMRL Data
 ===================================
