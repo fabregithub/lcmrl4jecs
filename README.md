@@ -42,10 +42,10 @@ files reside.
 Input File for LCMRL Data
 -------------------------
 
-The input file is a Microsoft Excel comma separated values (.csv) file
-containing the results of the LRB and LFB samples for a partial or
-completed LCMRL procedure. These data must be arranged in a specific
-format within the .csv file that is compatible with the LCMRL programme.
+The input file is a .csv file containing the results of the LRB and LFB
+samples for a partial or completed LCMRL procedure. These data must be
+arranged in a specific format within the .csv file that is compatible
+with the LCMRL programme.
 
 Laboratory Fortified Blank (LFB)
 --------------------------------
@@ -53,28 +53,35 @@ Laboratory Fortified Blank (LFB)
 The laboratory fortified blank (LFB) is an aliquot of reagent water,
 containing method preservatives, to which known quantities of the method
 analytes are added. The concentration of the analytes in an LFB is
-called a “spiking level” in the terminology of the LCMRL procedure.
+called a ‘spiking level’ in the terminology of the LCMRL procedure.
 
 Laboratory Reagent Blank (LRB)
 ------------------------------
 
 The laboratory reagent blank (LRB) is an aliquot of reagent water
 containing the method preservatives. LRBs are used to collect data for
-the required “zero spiking level” in the LCMRL procedure.
+the required ‘zero spiking level’ in the LCMRL procedure.
 
 Lowest Concentration Minimum Reporting Level (LCMRL)
 ----------------------------------------------------
 
 The single-laboratory LCMRL is the lowest spiking concentration such
 that the probability of spike recovery in the 50% to 150% range is at
-least 99%.1,2
+least 99% ([References](#references)).
 
 Test Data
 ---------
 
 There two test datasets included in this package. ‘pfas’ is the dataset
 created by the package maintainer. ‘test’ dataset is the one provided by
-the US EPA. Dataset can be loaded by (data(pfas)) or (data(test)).
+the US EPA. Dataset can be loaded and exported to .csv file by the
+following codes.
+
+    data(pfas)
+    write.csv(pfas, filename = 'pfasdata.csv')
+
+    data(test)
+    write.csv(pfas, filename = 'testdata.csv')
 
 Creating the RStudio Computing Environment
 ==========================================
@@ -93,49 +100,54 @@ Open.
 Verify Operation
 ----------------
 
-Follow the steps in Section 4 to calculate LCMRLs for the five analytes
-in the test data input file. After processing is complete, open the
-working directory, and find the file named “LCMRL.values.R LCMRL
-Test.csv. Verify that the LCMRLs in Column B and the messages in Column
-G are identical to those listed in Table 1. Ignore the information in
-the other columns. Two of the analytes, Analyte 2 and Analyte 4, should
-return error messages stating that an additional spiking level is needed
-to determine a valid LCMRL. These represent the two possible error
-messages for an incomplete LCMRL determination.
+Follow the steps in [Running LCMRL Scripts](#running-lcmrl-scripts) to
+calculate LCMRLs for the five analytes in the test data input file.
+After processing is complete, open the working directory, and find the
+file named ‘LCMRL.values.R LCMRL Test.csv.’ Verify that the LCMRLs in
+Column B and the messages in Column G are identical to those listed in
+Table 1. Ignore the information in the other columns. Two of the
+analytes, Analyte 2 and Analyte 4, should return error messages stating
+that an additional spiking level is needed to determine a valid LCMRL.
+These represent the two possible error messages for an incomplete LCMRL
+determination.
 
 For Analyte 2, an estimated LCMRL of 1.3 ng/L is reported with the
-message, “Lower spiking level needed to bracket LCMRL”. See Section
-5.2.3 for more information on this circumstance. For Analyte 4, the
-LCMRL is reported as “0” with the message, “LCMRL is above highest
-spiking level”. See Section 5.2.4 for more information on this
-circumstance.
+message, ‘Lower spiking level needed to bracket LCMRL’. See [When LCMRL
+Estimate is Less than the Lowest LFB
+Concentration](#when-lcmrl-estimate-is-less-than-the-lowest-lfb-concentration)
+for more information on this circumstance. For Analyte 4, the LCMRL is
+reported as ‘0’ with the message, ‘LCMRL is above highest spiking
+level’. See [When LCMRL Estimate is Greater than the Highest LFB
+Concentration](#when-lcmrl-estimate-is-greater-than-the-highest-lfb-concentration)
+for more information on this circumstance.
 
-Follow the steps in Section 4.6.1 to generate graphs for the test data.
-Open the working directory, and find the file named “R LCMRL
-Test.LCMRL.Graphs.pdf”. Two graphs for each analyte should appear: the
-QC Interval Coverage Plot and the LCMRL Plot. Both graphs for Analyte 2,
-should display this error message: “LCMRL is Below Lowest Non-Zero SL”.
-For Analyte 4, no graphs will appear in the PDF output file.
+Follow the steps in [Running LCMRL Scripts](#running-lcmrl-scripts) to
+generate graphs for the test data. Open the working directory, and find
+the file named ‘R LCMRL Test.LCMRL.Graphs.pdf’. Two graphs for each
+analyte should appear: the QC Interval Coverage Plot and the LCMRL Plot.
+Both graphs for Analyte 2, should display this error message: ‘LCMRL is
+Below Lowest Non-Zero SL’. For Analyte 4, no graphs will appear in the
+PDF output file.
 
 Creating the Input File for LCMRL Data
 --------------------------------------
 
-The input files are expected to be Microsoft Excel .csv files with a
-header in the first row. If the file is composed of multi-analyte data,
-then all analytes should be analyzed using the same method: either
-including non-negative values or not. The following rules apply:
+The input files are expected to be .csv files with a header in the first
+row. If the file is composed of multi-analyte data, then all analytes
+should be analyzed using the same method: either including non-negative
+values or not. The following rules apply:
 
-Header First Row: “Analyte”, “Lab”, “Spike”, “Result”, “Dilution
-Factor”, “Units”
+Header First Row: ‘Analyte’, ‘Lab’, ‘Spike’, ‘Result’, ‘Dilution
+Factor’, ‘Units’
 
-| Column | Field Description                                                                   |
-|:-------|:------------------------------------------------------------------------------------|
-| A      | Analyte name (alphanumeric; no comas should appear in the name)                     |
-| B      | Lab name (alphanumeric; no comas should appear in the name)                         |
-| C      | Spiking level (numeric); enter “0” for laboratory reagent blanks (LRBs)             |
-| D      | Measurement (numeric)                                                               |
-| E      | Dilution factor (numeric). Program at this time only expects dilution factors of 1. |
-| F      | Units of measurement (alphanumeric with no comas)                                   |
+| Column | Field Description                                                                    |
+|:-------|:-------------------------------------------------------------------------------------|
+| A      | Analyte name (alphanumeric; no commas should appear in the name)                     |
+| B      | Lab name (alphanumeric; no commas should appear in the name)                         |
+| C      | Spiking level (numeric); enter ‘0’ for laboratory reagent blanks (LRBs)              |
+| D      | Measurement (numeric)                                                                |
+| E      | Dilution factor (numeric). Programme at this time only expects dilution factors of 1 |
+| F      | Units of measurement (alphanumeric with no commas)                                   |
 
 The method analytes and concentration levels can be inserted in any
 order.
@@ -147,24 +159,24 @@ For LCMRL data consisting of only positive values, three command lines
 are required to calculate LCMRLs and generate the graphs, each followed
 by a carriage return:
 
-    fh.labdata <- "datafilename.csv"
-    LCMRL.Values(fh.labdata, rnnr = 1)
-    LCMRL.Graphs(fh.labdata, rnnr = 1)
+    fname <- 'datafilename.csv'
+    LCMRL.Values(fname, rnnr = 1)
+    LCMRL.Graphs(fname, rnnr = 1)
 
 For LCMRL data sets that include negative values, three command lines
 are required to calculate LCMRLs and generate the graphs, each followed
 by a carriage return:
 
-    fh.labdata <- "datafilename.csv"
-    LCMRL.Values(fh.labdata, rnnr = 0)
-    LCMRL.Graphs(fh.labdata, rnnr = 0)
+    fname <- 'datafilename.csv'
+    LCMRL.Values(fname, rnnr = 0)
+    LCMRL.Graphs(fname, rnnr = 0)
 
 Procedure for Collecting LCMRL Data
 ===================================
 
 The LCMRL Procedure requires a minimum of four LFBs at each of seven
-concentrations, or “spiking levels”. These LFBs, plus a minimum of four
-LRBs, or “zero spiking level”, are processed through the entire method
+concentrations, or ‘spiking levels’. These LFBs, plus a minimum of four
+LRBs, or ‘zero spiking level’, are processed through the entire method
 procedure. All method specified steps, such as sample extraction and
 sample preservation, must be included.
 
@@ -176,21 +188,28 @@ the method analytes and concentrations for the internal standards and
 surrogates can be found in the EPA method.
 
 Start by selecting five spiking levels that will be used to estimate the
-LCMRL for each analyte. Section 5.2 including subsections discuss
-criteria useful for determining appropriate concentrations. Make sure
-each LFB concentration you select is bracketed by calibration standards
-(Sect. 5.1.2). After you complete five of the seven LFB levels,
-calculate LCMRLs for the method analytes.
+LCMRL for each analyte. [LFB Concentrations Must Bracket
+LCMRL](#lfb-concentrations-must-bracket-lcmrl) including subsections
+discuss criteria useful for determining appropriate concentrations. Make
+sure each LFB concentration you select is bracketed by calibration
+standards ([Range of LFB Concentrations](#range-of-lfb-concentrations)).
+After you complete five of the seven LFB levels, calculate LCMRLs for
+the method analytes.
 
-Select at least two more LFB levels. See Section 5.4 for guidelines on
-appropriate LFB concentrations. As you complete these additional levels,
-update the LCMRL input file with the additional data and calculate
-revised LCMRLs. For each analyte, the LCMRL program will display a
-message in the output file indicating whether a valid LCMRL has been
-determined or if additional spiking levels are required. Follow the
-recommendations in Section 5.2.3 (lower level LFB needed) and Section
-5.2.4 (higher level LFB needed) to add additional spiking levels until
-valid LCMRLs are determined for each analyte.
+Select at least two more LFB levels. See [Estimate LCMRL after Five
+Spiking Levels](#estimate-lcmrl-after-five-spiking-levels) for
+guidelines on appropriate LFB concentrations. As you complete these
+additional levels, update the LCMRL input file with the additional data
+and calculate revised LCMRLs. For each analyte, the LCMRL program will
+display a message in the output file indicating whether a valid LCMRL
+has been determined or if additional spiking levels are required. Follow
+the recommendations in [When LCMRL Estimate is Less than the Lowest LFB
+Concentration](#when-lcmrl-estimate-is-less-than-the-lowest-lfb-concentration)
+(lower level LFB needed) and [When LCMRL Estimate is Greater than the
+Highest LFB
+Concentration](#when-lcmrl-estimate-is-greater-than-the-highest-lfb-concentration)
+(higher level LFB needed) to add additional spiking levels until valid
+LCMRLs are determined for each analyte.
 
 LCMRL Calibration Range
 -----------------------
@@ -246,7 +265,7 @@ seven spiking levels.
 
 When the calculated LCMRL is lower than the lowest LFB spiking level, an
 estimated LCMRL result will appear in the output file with a message:
-“Lower spiking level needed to bracket the LCMRL.” This means that the
+‘Lower spiking level needed to bracket the LCMRL.’ This means that the
 LCMRL program needs a lower LFB level to calculate a valid LCMRL.
 Fortify this additional LFB below the estimated LCMRL while retaining as
 much signal to noise as possible. Practically speaking, at least one
@@ -264,8 +283,8 @@ do not have to be re-analyzed.
 
 When the calculator determines that an LCMRL estimate is higher than the
 highest LFB spiking level, an LCMRL result will not appear in the output
-file. Instead, this message will appear: “LCMRL is above highest spiking
-level”. This means that when the calculator processed the LFB results,
+file. Instead, this message will appear: ‘LCMRL is above highest spiking
+level’. This means that when the calculator processed the LFB results,
 the LCMRL QC probability limits were greater than 50 to 150%, even at
 the highest level. If an LCMRL is to be determined, a higher LFB level
 must be processed. This assumes that accuracy and precision will improve
@@ -290,7 +309,7 @@ Include Laboratory Reagent Blanks in Data Set
 ---------------------------------------------
 
 At least four LRBs must be included in the dataset. If the LRB does not
-have a response, report “0”.
+have a response, report ‘0’.
 
 Estimate LCMRL after Five Spiking Levels
 ----------------------------------------
@@ -328,20 +347,20 @@ low end of the calibration curve, this requirement may need to be
 addressed by selecting a lower set of units for the LCMRL analyses. Note
 that numerical results ending in zero are truncated in .csv files. For
 example, a result of 4.00 ng/L would appear in the .csv input file
-truncated as “4”. This is normal and does not affect the calculation.
+truncated as ‘4’. This is normal and does not affect the calculation.
 
 ### Report No Response as Zero
 
 Instrument software may not report a result when there is not a peak to
-integrate. Report such an analysis as “0”. In addition, when a software
-system reports “below calibration,” enter “0”.
+integrate. Report such an analysis as ‘0’. In addition, when a software
+system reports ‘below calibration,’ enter ‘0’.
 
 ### Negative Values
 
 At low-level concentration, some instrument software systems will report
 negative numbers. Enter negative values into the input file and
 calculate LCMRLs using the script for data sets that include negative
-numbers (Sect. 4.5).
+numbers.
 
 No Time Requirement
 -------------------
@@ -359,3 +378,16 @@ interval is considered conservative, but for drinking water surveys the
 quality of the data is important. The data quality interval that was
 chosen for the LCMRL, 50 to 150%, was based upon the judgement of
 experienced analysts at OGWDW.
+
+References
+==========
+
+1.  US EPA. Statistical Protocol for the Determination of the
+    Single-Laboratory Lowest Concentration Minimum Reporting Level
+    (LCMRL) and Validation of Laboratory Performance at or Below the
+    Minimum Reporting Level (MRL); EPA 815-R-05-006; Office of Water:
+    Cincinnati, OH, November 2004.
+
+2.  US EPA. Technical Basis for the Lowest Concentration Minimum
+    Reporting Level (LCMRL) Calculator; EPA 815-R-11-001; Office of
+    Water: Cincinnati, OH, December 2010.
