@@ -42,10 +42,10 @@ files reside.
 Input File for LCMRL Data
 -------------------------
 
-The input file is a .csv file containing the results of the LRB and LFB
-samples for a partial or completed LCMRL procedure. These data must be
-arranged in a specific format within the .csv file that is compatible
-with the LCMRL programme.
+The input file is a `.csv` file containing the results of the LRB and
+LFB samples for a partial or completed LCMRL procedure. These data must
+be arranged in a specific format within the `.csv` file that is
+compatible with the LCMRL programme.
 
 Laboratory Fortified Blank (LFB)
 --------------------------------
@@ -78,10 +78,10 @@ the US EPA. Dataset can be loaded and exported to .csv file by the
 following codes.
 
     data(pfas)
-    write.csv(pfas, filename = 'pfasdata.csv')
+    write.table(pfas, file = 'pfasdata.csv', sep = ',', row.names = FALSE, col.names = FALSE)
 
     data(test)
-    write.csv(pfas, filename = 'testdata.csv')
+    write.table(test, file = 'pfasdata.csv', sep = ',', row.names = FALSE, col.names = FALSE)
 
 Creating the RStudio Computing Environment
 ==========================================
@@ -92,10 +92,10 @@ Create the Working Directory
 You can create a working directory wherever you want as far as you have
 a writing privilege or administrative privilege.
 
-From the Session drop down menu in RStudio, select Set Working Directory
-&gt; Chose Directory. Browse to the location of the new working
-directory, click on the ‘you\_working\_directory’ folder, then click
-Open.
+From the Session drop down menu in RStudio, select
+`Set Working Directory > Chose Directory`. Browse to the location of the
+new working directory, click on the `your_working_directory` folder,
+then click Open.
 
 Verify Operation
 ----------------
@@ -103,12 +103,12 @@ Verify Operation
 Follow the steps in [Running LCMRL Scripts](#running-lcmrl-scripts) to
 calculate LCMRLs for the five analytes in the test data input file.
 After processing is complete, open the working directory, and find the
-file named ‘LCMRL.values.R LCMRL Test.csv.’ Verify that the LCMRLs in
-Column B and the messages in Column G are identical to those listed in
-Table 1. Ignore the information in the other columns. Two of the
-analytes, Analyte 2 and Analyte 4, should return error messages stating
-that an additional spiking level is needed to determine a valid LCMRL.
-These represent the two possible error messages for an incomplete LCMRL
+file named `LCMRL.values.testdata.csv`. Verify that the LCMRLs in Column
+B and the messages in Column G are identical to those listed in Table 1.
+Ignore the information in the other columns. Two of the analytes,
+Analyte 2 and Analyte 4, should return error messages stating that an
+additional spiking level is needed to determine a valid LCMRL. These
+represent the two possible error messages for an incomplete LCMRL
 determination.
 
 For Analyte 2, an estimated LCMRL of 1.3 ng/L is reported with the
@@ -123,11 +123,11 @@ for more information on this circumstance.
 
 Follow the steps in [Running LCMRL Scripts](#running-lcmrl-scripts) to
 generate graphs for the test data. Open the working directory, and find
-the file named ‘R LCMRL Test.LCMRL.Graphs.pdf’. Two graphs for each
-analyte should appear: the QC Interval Coverage Plot and the LCMRL Plot.
-Both graphs for Analyte 2, should display this error message: ‘LCMRL is
-Below Lowest Non-Zero SL’. For Analyte 4, no graphs will appear in the
-PDF output file.
+the file named `testdata.LCMRL.Graphs.pdf`. Two graphs for each analyte
+should appear: the QC Interval Coverage Plot and the LCMRL Plot. Both
+graphs for Analyte 2, should display this error message: ‘LCMRL is Below
+Lowest Non-Zero SL’. For Analyte 4, no graphs will appear in the PDF
+output file.
 
 Creating the Input File for LCMRL Data
 --------------------------------------
@@ -288,9 +288,9 @@ level’. This means that when the calculator processed the LFB results,
 the LCMRL QC probability limits were greater than 50 to 150%, even at
 the highest level. If an LCMRL is to be determined, a higher LFB level
 must be processed. This assumes that accuracy and precision will improve
-at higher spiking levels. ’For example, if the method cannot extract at
+at higher spiking levels. For example, if the method cannot extract at
 least a recovery of 50% at any concentration, an LCMRL defined as
-“between 50 and 150% recovery” cannot be determined. At least one
+‘between 50 and 150% recovery’ cannot be determined. At least one
 spiking level needs to pass LCMRL QC probability limits to determine an
 acceptable LCMRL.
 

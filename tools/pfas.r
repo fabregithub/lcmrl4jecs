@@ -27,3 +27,8 @@ for(i in 1:length(files)) {
 filename <- 'pfas-lcmrl.csv'
 LCMRL.Values(filename, rnnr = 1)
 LCMRL.Graphs(filename, rnnr = 1)
+
+library(lcmrl4jecs)
+data(pfas)
+write.table(pfas, file = 'pfasdata.csv', sep = ',',
+            row.names = FALSE, col.names = FALSE)
