@@ -74,7 +74,7 @@ Test Data
 
 There two test datasets included in this package. ‘pfas’ is the dataset
 created by the package maintainer. ‘test’ dataset is the one provided by
-the US EPA. Dataset can be loaded and exported to .csv file by the
+the US EPA. Dataset can be loaded and exported to `.csv` file by the
 following codes.
 
     data(pfas)
@@ -140,10 +140,10 @@ output file.
 Creating the Input File for LCMRL Data
 --------------------------------------
 
-The input files are expected to be .csv files with a header in the first
-row. If the file is composed of multi-analyte data, then all analytes
-should be analyzed using the same method: either including non-negative
-values or not. The following rules apply:
+The input files are expected to be `.csv` files with a header in the
+first row. If the file is composed of multi-analyte data, then all
+analytes should be analyzed using the same method: either including
+non-negative values or not. The following rules apply:
 
 Header First Row: ‘Analyte’, ‘Lab’, ‘Spike’, ‘Result’, ‘Dilution
 Factor’, ‘Units’
@@ -357,8 +357,8 @@ Otherwise, the variance may be censored, resulting in an artificially
 low LCMRL. Because data systems may truncate the number of digits at the
 low end of the calibration curve, this requirement may need to be
 addressed by selecting a lower set of units for the LCMRL analyses. Note
-that numerical results ending in zero are truncated in .csv files. For
-example, a result of 4.00 ng/L would appear in the .csv input file
+that numerical results ending in zero are truncated in `.csv` files. For
+example, a result of 4.00 ng/L would appear in the `.csv` input file
 truncated as ‘4’. This is normal and does not affect the calculation.
 
 ### Report No Response as Zero
