@@ -1281,7 +1281,7 @@ MRL.Output <- function(An, U, BB.tmp2, labflag, LCMRL.val, boot.iter, outfh, fh.
       if(is.null(labnum))
          {
          plot(xpts,ypts,main=paste(AnalName,"QC Interval Coverage Plot"),
-         xlab=paste("True Concentration"," (",strUnits,")"),
+         xlab=paste("True Concentration"," (", strUnits, ")", sep = ''),
          ylab="Probability of QC Interval Coverage",
          xlim=c(0,maxS),ylim=c(0.96*MinCov, 1.0),
          pch="", ask=TRUE)
@@ -1289,7 +1289,7 @@ MRL.Output <- function(An, U, BB.tmp2, labflag, LCMRL.val, boot.iter, outfh, fh.
          {
          plot(xpts,ypts,main=paste(AnalName,"Lab",
                      labnum,"\n","QC Interval Coverage Plot"),
-         xlab=paste("True Concentration"," (",strUnits,")"),
+         xlab=paste("True Concentration"," (", strUnits, ")", sep = ''),
          ylab="Probability of QC Interval Coverage",
          xlim=c(0,maxS),ylim=c(0.96*MinCov, 1.0),
          pch="", ask=TRUE)
@@ -1317,16 +1317,16 @@ MRL.Output <- function(An, U, BB.tmp2, labflag, LCMRL.val, boot.iter, outfh, fh.
       if(is.null(labnum))
          {
          plot(SpikeConc,MeasConc, main=paste(AnalName,"- LCMRL Plot"),
-         xlab=paste("True Concentration"," (",strUnits,")"),
-         ylab=paste("Measured Concentration"," (",strUnits,")"),
+         xlab=paste("True Concentration", " (", strUnits, ")", sep = ''),
+         ylab=paste("Measured Concentration", " (", strUnits, ")", sep = ''),
                   col='blue',pch="o",
          ylim=c(0,1.05*upQL*maxS),xlim=c(0,maxS))
          } else
          {
          plot(SpikeConc,MeasConc, main=paste(AnalName,"Lab",
                                  labnum,"\n","LCMRL Plot"),
-         xlab=paste("True Concentration"," (",strUnits,")"),
-         ylab=paste("Measured Concentration"," (",strUnits,")"),
+         xlab=paste("True Concentration", " (", strUnits, ")", sep = ''),
+         ylab=paste("Measured Concentration", " (", strUnits, ")", sep = ''),
                      col='blue',pch="o",
          ylim=c(0,1.05*upQL*maxS),xlim=c(0,maxS))
          }
