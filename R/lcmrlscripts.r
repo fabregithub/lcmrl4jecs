@@ -1343,7 +1343,7 @@ MRL.Output <- function(An, U, BB.tmp2, labflag, LCMRL.val, boot.iter, outfh, fh.
          legend(topleft[1],topleft[2],
          c('Data',paste('LCMRL =',sprintf("%.3f",LCMRLval),strUnits),
          paste('Hubaux-Vos DL',sprintf("%.3f",DLval),strUnits),
-         '%50 - %150 Recovery','Lower/Upper Prediction Limits'),
+         '50-150% Recovery','Lower/Upper Prediction Limits'),
          col=c('blue','green','green','red','blue'),
          pch=c("o","+","x","",""),lty=c(0,0,0,2,3) )
          } else
@@ -1352,7 +1352,7 @@ MRL.Output <- function(An, U, BB.tmp2, labflag, LCMRL.val, boot.iter, outfh, fh.
          legend(topleft[1],topleft[2],
          c('Data',paste('LCMRL =',sprintf("%.3f",LCMRLval),strUnits),
          paste('Hubaux-Vos DL',sprintf("%.3f",DLval),strUnits),
-         '%50 - %150 Recovery','Lower/Upper Prediction Limits'),
+         '50-150% Recovery','Lower/Upper Prediction Limits'),
          col=c('blue','green','green','red','blue'),
          pch=c("o","+","x","",""),lty=c(0,0,0,2,3))
          par(op)
