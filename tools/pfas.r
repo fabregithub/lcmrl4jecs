@@ -29,6 +29,18 @@ LCMRL.Values(filename, rnnr = 1)
 LCMRL.Graphs(filename, rnnr = 1)
 
 library(lcmrl4jecs)
-data(pfas)
-write.table(pfas, file = 'pfasdata.csv', sep = ',',
-            row.names = FALSE, col.names = FALSE)
+fname <- 'pfas-lcmrl.csv'
+LCMRL.Values(fname, rnnr = 1)
+LCMRL.Graphs(fname, rnnr = 1)
+
+## Extra
+pfas1 <- read.csv('pfas-lcmrl.csv', header = FALSE)
+data(test)
+coln <- colnames(test) 
+colnames(pfas1) <- coln
+names(pfas1)
+saveRDS(pfas1, 'pfas.rda')
+readRDS('pfas.rda')
+
+
+

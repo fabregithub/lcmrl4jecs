@@ -5,7 +5,7 @@
 \alias{pfas}
 \title{PFAS data}
 \format{
-An object of class \code{data.frame} with 543 rows and 6 columns.
+An object of class \code{data.frame} with 544 rows and 6 columns.
 }
 \usage{
 pfas
