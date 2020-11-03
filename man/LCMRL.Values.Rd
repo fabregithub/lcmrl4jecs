@@ -15,19 +15,19 @@ LCMRL.Values(
 )
 }
 \arguments{
-\item{fh}{file}
+\item{fh}{file name}
 
-\item{LQL}{lower quantitation limit}
+\item{LQL}{lower quantitation limit, default = 0.5}
 
-\item{UQL}{upper quantitation limit}
+\item{UQL}{upper quantitation limit, default = 1.5}
 
 \item{CPR}{CPR}
 
-\item{alph}{alpha}
+\item{alph}{alpha error}
 
-\item{bet}{beta}
+\item{bet}{beta error}
 
-\item{rnnr}{rnnr}
+\item{rnnr}{set 1 if data consisting of only positive values, and 0 if data includes negative values}
 }
 \description{
 LCRML.Values function

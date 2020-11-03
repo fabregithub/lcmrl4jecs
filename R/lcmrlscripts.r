@@ -81,13 +81,13 @@ MRL.Summary <- function(fh.labdata, rnnr=1, biter=200, Seed=0261948, abbr.out=TR
 
 #' LCRML.Values function
 #'
-#' @param fh file
-#' @param LQL lower quantitation limit
-#' @param UQL upper quantitation limit
+#' @param fh file name
+#' @param LQL lower quantitation limit, default = 0.5
+#' @param UQL upper quantitation limit, default = 1.5
 #' @param CPR CPR
-#' @param alph alpha
-#' @param bet beta
-#' @param rnnr rnnr
+#' @param alph alpha error
+#' @param bet beta error
+#' @param rnnr set 1 if data consisting of only positive values, and 0 if data includes negative values
 #'
 #' @export
 #'
@@ -179,13 +179,13 @@ LCMRL.Values <- function(fh, LQL=0.5, UQL=1.5, CPR=0.99, alph=0.05, bet=0.05, rn
 
 #' LCMRL.Graphs
 #'
-#' @param fh file
-#' @param LQL lower quantitation limit
-#' @param UQL upper quantitation limit
+#' @param fh file name
+#' @param LQL lower quantitation limit, default = 0.5
+#' @param UQL upper quantitation limit, default = 1.5
 #' @param CPR CPR
-#' @param alph alpha
-#' @param bet beta
-#' @param rnnr rnnr
+#' @param alph alpha error
+#' @param bet beta error
+#' @param rnnr set 1 if data consisting of only positive values, and 0 if data includes negative values
 #'
 #' @export
 #'
