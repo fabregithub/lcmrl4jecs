@@ -68,10 +68,10 @@ the US EPA. Dataset can be loaded and exported to `.csv` file by the
 following codes.
 
     data(pfas)
-    write.table(pfas, file = 'pfasdata.csv', sep = ',', row.names = FALSE, col.names = FALSE)
+    write.table(pfas, file = 'pfasdata.csv', sep = ',', row.names = FALSE, col.names = TRUE)
 
     data(test)
-    write.table(test, file = 'testdata.csv', sep = ',', row.names = FALSE, col.names = FALSE)
+    write.table(test, file = 'testdata.csv', sep = ',', row.names = FALSE, col.names = TRUE)
 
 # Creating the RStudio Computing Environment
 

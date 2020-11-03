@@ -59,10 +59,10 @@ There two test datasets included in this package. 'pfas' is the dataset created 
 
 ``` r
 data(pfas)
-write.table(pfas, file = 'pfasdata.csv', sep = ',', row.names = FALSE, col.names = FALSE)
+write.table(pfas, file = 'pfasdata.csv', sep = ',', row.names = FALSE, col.names = TRUE)
 
 data(test)
-write.table(test, file = 'testdata.csv', sep = ',', row.names = FALSE, col.names = FALSE)
+write.table(test, file = 'testdata.csv', sep = ',', row.names = FALSE, col.names = TRUE)
 ```
 
 # Creating the RStudio Computing Environment
