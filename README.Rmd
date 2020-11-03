@@ -25,7 +25,8 @@ This package is to implement the LCMRL code developed by Dr Steven C. Wendelken 
 You can install the development version of lcmrl4jecs from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
+install.packages("devtools")
+install.packages(c("lattice", "car"))
 devtools::install_github("fabregithub/lcmrl4jecs")
 ```
 
