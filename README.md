@@ -131,8 +131,8 @@ first row. If the file is composed of multi-analyte data, then all
 analytes should be analyzed using the same method: either including
 non-negative values or not. The following rules apply:
 
-Header First Row: ‘Analyte’, ‘Lab’, ‘Spike’, ‘Result’, ‘Dilution
-Factor’, ‘Units’
+Header First Row: ‘Analyte’, ‘Lab’, ‘Spike’, ‘Result’,
+‘Dilution.Factor’, ‘Units’
 
 | Column | Field Description                                                                    |
 |:-------|:-------------------------------------------------------------------------------------|
