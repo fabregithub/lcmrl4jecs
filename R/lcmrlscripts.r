@@ -99,7 +99,7 @@ LCMRL.Values <- function(fh, LQL=0.5, UQL=1.5, CPR=0.99, alph=0.05, bet=0.05, rn
    # values for test runs
 
    fh.a <- strtrim(fh,nchar(fh)-4)
-   outfh <- paste(fh,"LCMRL.values",sep="")
+   outfh <- paste(fh.a,"LCMRL.values",".csv",sep="")
 
    dat <- try(read.csv(fh,as.is=T),silent=TRUE)
    if( class(dat)[1]=="try-error")
