@@ -98,7 +98,7 @@ scripts
     LCMRL.Graphs(fname, rnnr = 1)
 
 After processing is complete, open the working directory, and find the
-file named `LCMRL.values.testdata.csv`. Verify that the LCMRLs in Column
+file named `testdata.LCMRL.values.csv`. Verify that the LCMRLs in Column
 B and the messages in Column G are identical to those listed in Table 1.
 Ignore the information in the other columns. Two of the analytes,
 Analyte 2 and Analyte 4, should return error messages stating that an
@@ -118,7 +118,7 @@ for more information on this circumstance.
 
 Follow the steps in [Running LCMRL Scripts](#running-lcmrl-scripts) to
 generate graphs for the test data. Open the working directory, and find
-the file named `testdata.LCMRL.Graphs.pdf`. Two graphs for each analyte
+the file named `testdata.LCMRL.graphs.pdf`. Two graphs for each analyte
 should appear: the QC Interval Coverage Plot and the LCMRL Plot. Both
 graphs for Analyte 2, should display this error message: ‘LCMRL is Below
 Lowest Non-Zero SL’. For Analyte 4, no graphs will appear in the PDF

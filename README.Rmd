@@ -83,7 +83,7 @@ LCMRL.Values(fname, rnnr = 1)
 LCMRL.Graphs(fname, rnnr = 1)
 ```
 
-After processing is complete, open the working directory, and find the file named `LCMRL.values.testdata.csv`.
+After processing is complete, open the working directory, and find the file named `testdata.LCMRL.values.csv`.
 Verify that the LCMRLs in Column B and the messages in Column G are identical to those listed in Table 1.
 Ignore the information in the other columns.
 Two of the analytes, Analyte 2 and Analyte 4, should return error messages stating that an additional spiking level is needed to determine a valid LCMRL.
@@ -95,7 +95,7 @@ For Analyte 4, the LCMRL is reported as '0' with the message, 'LCMRL is above hi
 See [When LCMRL Estimate is Greater than the Highest LFB Concentration] for more information on this circumstance.
 
 Follow the steps in [Running LCMRL Scripts] to generate graphs for the test data.
-Open the working directory, and find the file named `testdata.LCMRL.Graphs.pdf`.
+Open the working directory, and find the file named `testdata.LCMRL.graphs.pdf`.
 Two graphs for each analyte should appear: the QC Interval Coverage Plot and the LCMRL Plot.
 Both graphs for Analyte 2, should display this error message: 'LCMRL is Below Lowest Non-Zero SL'.
 For Analyte 4, no graphs will appear in the PDF output file.

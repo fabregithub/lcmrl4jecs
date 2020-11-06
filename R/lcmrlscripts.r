@@ -99,7 +99,7 @@ LCMRL.Values <- function(fh, LQL=0.5, UQL=1.5, CPR=0.99, alph=0.05, bet=0.05, rn
    # values for test runs
 
    fh.a <- strtrim(fh,nchar(fh)-4)
-   outfh <- paste("LCMRL.Values.",fh,sep="")
+   outfh <- paste(fh,"LCMRL.values",sep="")
 
    dat <- try(read.csv(fh,as.is=T),silent=TRUE)
    if( class(dat)[1]=="try-error")
@@ -229,7 +229,7 @@ LCMRL.Graphs <- function(fh, LQL=0.5, UQL=1.5, CPR=0.99, alph=0.05, bet=0.05, rn
             print( "Both the Spiking Levels and Measurents must be numeric")
             return()
             }
-   pdf(paste(fh.a,".LCMRL.Graphs.pdf",sep=""),height=11,width=8.5)
+   pdf(paste(fh.a,".LCMRL.graphs.pdf",sep=""),height=11,width=8.5)
    for( kk in 1:num.AN)
       {
       tt <- dat[dat[,1]==uniq.AN[kk],]
